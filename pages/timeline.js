@@ -1,4 +1,5 @@
 import Layout from "../components/Layout";
+import {getPixels} from "../services/pixels";
 import {useEffect, useState} from "react";
 
 export default function Timeline(){
@@ -8,21 +9,20 @@ export default function Timeline(){
 
     useEffect(() => {
         let mounted = true;
-        const url = "/api/get_pixels";
-        fetch(url).then(res => res.json())
-            .then(res => {
-                if(mounted){
-                    console.log(res.path);
-                    console.log(res.payload);
-                    setData(res.payload);
-                    return () => {
-                        mounted = false;
-                    };
-                }
-            }).catch(e => {
-                console.error(e);
-                console.log("an error has occurred.")
-            });                
+       
+        getPixels().then(res => {
+            if(mounted){
+                console.log(res.path);
+                console.log(res.payload);
+                setData(res.payload);
+                return () => {
+                    mounted = false;
+                };
+            }
+        }).catch(e => {
+            console.error(e);
+            console.log("an error has occurred.")
+        });                
     }, [])
 
     return (

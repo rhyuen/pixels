@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import Layout from "../components/Layout";
+import { createPixel } from "../services/pixels";
 
 export default function Index(){
    
@@ -44,17 +45,7 @@ export default function Index(){
 
     const handleSubmit = e => {
         e.preventDefault();
-        const url = "/api/make_pixel";    
-
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type" : "application/json"
-            },
-            body: JSON.stringify({data: data})
-        };
-        fetch(url, options)
-            .then(res => res.json())
+        createPixel(data)            
             .then(res => {
                 console.log(res.path);
                 console.log(res.description);
@@ -62,7 +53,6 @@ export default function Index(){
                 console.log(err);
                 console.log("error with form submission");
             });
-
     }
 
     return (
