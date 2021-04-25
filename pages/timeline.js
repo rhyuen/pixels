@@ -25,22 +25,41 @@ export default function Timeline(){
         });                
     }, [])
 
+    const getRelativeTimeString = (date) => {
+        const differenceInSeconds = (new Date() - new Date(date))/1000;
+        if(differenceInSeconds < 60){
+            return `${Math.ceil(differenceInSeconds)} seconds ago.`;
+        }
+        const differenceInMinutes = differenceInSeconds / 60;
+        if(differenceInMinutes < 60 ){
+            return `${Math.ceil(differenceInMinutes)} minutes ago.`;
+        }
+        const differenceInHours = differenceInMinutes / 60;
+        if(differenceInHours <= 24){
+            return `${Math.ceil(differenceInHours)} hours ago.`;
+        }
+        
+        return `${Math.ceil(differenceInHours / 24)} days ago.`;
+        
+    }
+
     return (
         <Layout>
             <h1>Pixel Timeline.</h1>
             {
                 data.length === 0 ? "No pixels to show.":
-                data.map(px => {                    
+                data.map(({image, creator, created_at, _id}) => {                    
                     return (
-                        <div style={{marginBottom: "20px"}}>
+                        <div style={{marginBottom: "20px"}} key={_id}>
+                            <h3>{creator}, { getRelativeTimeString(created_at)}</h3>
                         {
-                            px.image.map((row) => {
+                            image.map((row, rowKey) => {
                                 return (                            
-                                    <div className="row">
+                                    <div className="row" key={rowKey}>
                                         {
-                                            row.map(col => {
+                                            row.map((col, colKey) => {
                                                 return (
-                                                    <div className="square" style={{backgroundColor: col}}></div>
+                                                    <div className="square" style={{backgroundColor: col}} key={colKey}></div>
                                                 )
                                             })
                                         }

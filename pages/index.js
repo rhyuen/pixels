@@ -49,6 +49,7 @@ export default function Index(){
             .then(res => {
                 console.log(res.path);
                 console.log(res.description);
+                setData(new Array(COLUMNS).fill(new Array(COLUMNS).fill("palevioletred")));
             }).catch(err => {
                 console.log(err);
                 console.log("error with form submission");
