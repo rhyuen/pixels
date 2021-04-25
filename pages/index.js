@@ -42,10 +42,33 @@ export default function Index(){
         setData(updated);
     }
 
+    const handleSubmit = e => {
+        e.preventDefault();
+        const url = "/api/make_pixel";    
+
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({data: data})
+        };
+        fetch(url, options)
+            .then(res => res.json())
+            .then(res => {
+                console.log(res.path);
+                console.log(res.description);
+            }).catch(err => {
+                console.log(err);
+                console.log("error with form submission");
+            });
+
+    }
+
     return (
         <Layout>
             <h1>Pixels</h1>
-                <section>
+            <section key={1}>
                     <select value={COLUMNS} onChange={handleColumnChange}>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -57,7 +80,7 @@ export default function Index(){
                 </select>
                 <button onClick={handleReset}>Reset</button>
             </section>
-            <section>
+            <section key={2}>
                 {
                     data.map((row, rowIndex) => {
                         return (
@@ -79,29 +102,30 @@ export default function Index(){
                     })
                 }
             </section>
-            <section>
+            <section key={3}>
                 <div className="row">
                     <div className="square" 
                         style={{backgroundColor: "black"}} 
-                        onClick = {()=> setColour("black")}>
-                        black
+                        onClick = {()=> setColour("black")}>                        
                     </div>
                     <div className="square" 
                         style={{backgroundColor: "white"}} 
-                        onClick = {()=> setColour("white")}>
-                        white
+                        onClick = {()=> setColour("white")}>                        
                     </div>
                     <div className="square" 
                         style={{backgroundColor: "#3434ff"}} 
-                        onClick = {()=> setColour("#3434ff")}>
-                        white
+                        onClick = {()=> setColour("#3434ff")}>                        
                     </div>  
                     <div className="square" 
                         style={{backgroundColor: "#afafaf"}} 
-                        onClick = {()=> setColour("#afafaf")}>
-                        white
+                        onClick = {()=> setColour("#afafaf")}>                        
                     </div>
                 </div>
+            </section>
+            <section key={4}>
+                <form onSubmit={handleSubmit}>
+                    <input type="submit"/>
+                </form>
             </section>
 
             <style jsx>{`
