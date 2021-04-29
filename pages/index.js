@@ -64,7 +64,7 @@ export default function Index(){
 
     const handleSubmit = e => {
         e.preventDefault();
-        createPixel(data)            
+        createPixel(data, palette)            
             .then(res => {
                 console.log(res.path);
                 console.log(res.description);

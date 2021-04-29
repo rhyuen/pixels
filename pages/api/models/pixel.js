@@ -4,9 +4,11 @@ const pixelSchema = new mongoose.Schema({
     creator: {
         type: String,
         required: true
-    }, image: [
+    },
+    palette: Object,
+    image: [
         [String]
-    ]
+    ] 
 },{
     timestamps: {
         createdAt: "created_at"

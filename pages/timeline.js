@@ -1,6 +1,8 @@
 import Layout from "../components/Layout";
 import {getPixels} from "../services/pixels";
+import Pixel from "../components/Pixel";
 import {useEffect, useState} from "react";
+import Palette from "../components/Palette";
 
 export default function Timeline(){
 
@@ -48,51 +50,18 @@ export default function Timeline(){
             <h1>Pixel Timeline.</h1>
             {
                 data.length === 0 ? "No pixels to show.":
-                data.map(({image, creator, created_at, _id}) => {                    
+                data.map(({image, creator, created_at, _id, palette}) => {                    
                     return (
                         <div style={{marginBottom: "20px"}} key={_id}>
-                            <h3>{creator}, { getRelativeTimeString(created_at)}</h3>
-                        {
-                            image.map((row, rowKey) => {
-                                return (                            
-                                    <div className="row" key={rowKey}>
-                                        {
-                                            row.map((col, colKey) => {
-                                                return (
-                                                    <div className="square" style={{backgroundColor: col}} key={colKey}></div>
-                                                )
-                                            })
-                                        }
-                                    </div>                            
-                                )
-                            })
-                        }
+                            <h3>{creator}, { getRelativeTimeString(created_at)}</h3>                    
+                            <Pixel data={image} handleClick={ () => {console.log('dummy')}}/>
+                            <br/>
+                            <Palette colours={Object.values(palette)}/>
                         </div>
                     )
                 })                
             }
-
-            <style jsx>{`
-                .row{
-                    display: flex;
-                }
-
-                .square{
-                    border: 2px solid black;
-                    width: 4rem;
-                    height: 4rem;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-                .square:first-child{
-                    border-right: 2px solid transparent;
-                }
-                .square:last-child{                    
-                    border-left: 2px solid transparent;
-                    border-right: 2px solid black;
-                }
-            `}</style>
+        
         </Layout>
     )
 }

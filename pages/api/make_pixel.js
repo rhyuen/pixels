@@ -9,15 +9,18 @@ async function handler(req, res) {
             })
         }else{
 
-            const {data} = req.body;
-            const toBeSaved = data.map(item=>item);
+            const {image, palette} = req.body;
+            const toBeSaved = image.map(item=>item);
             console.log(toBeSaved);
+            console.log( palette);            
             const latest = new Pixel({
                 creator: `Robert${new Date().getMilliseconds()}`,
-                image: toBeSaved
+                image: toBeSaved,
+                palette: palette
+                
             });
 
-            const result = await latest.save();
+            await latest.save();
             console.log('yes');
 
             return res.status(200).json({
@@ -26,6 +29,7 @@ async function handler(req, res) {
             });
         }
     }catch(e){
+        console.log(e);
         return res.status(500).json({
             path: "[POST] /make_pixels",            
             message: "something has gone wrong on our end.",

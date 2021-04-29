@@ -1,4 +1,4 @@
-export function createPixel(data){
+export function createPixel(image, palette){
     const url = "/api/make_pixel";    
 
     const options = {
@@ -6,7 +6,7 @@ export function createPixel(data){
         headers: {
             "Content-Type" : "application/json"
         },
-        body: JSON.stringify({data: data})
+        body: JSON.stringify({image: image, palette: palette})
     };
     return fetch(url, options).then(res => res.json());
 }
