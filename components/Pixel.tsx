@@ -1,22 +1,29 @@
-const Pixel = ({data, handleClick}) => {
+import { FunctionComponent } from "react";
+
+interface Props {
+    data: Array<Array<string>>;
+    handleClick: (rowIndex: number, colIndex: number) => void;
+};
+
+const Pixel: FunctionComponent<Props> = ({ data, handleClick }: Props) => {
     return (
         <>
             {
                 data.map((row, rowIndex) => {
                     return (
-                        <div className="row" 
+                        <div className="row"
                             key={rowIndex}>
                             {
                                 row.map((col, colIndex) => {
                                     return (
-                                        <div key={colIndex} 
-                                            className="square" 
-                                            style={{backgroundColor: col}} 
-                                            onClick = {() => handleClick(rowIndex, colIndex)}>                                                
+                                        <div key={colIndex}
+                                            className="square"
+                                            style={{ backgroundColor: col }}
+                                            onClick={() => handleClick(rowIndex, colIndex)}>
                                         </div>
                                     )
                                 })
-                            }                
+                            }
                         </div>
                     );
                 })
@@ -45,7 +52,7 @@ const Pixel = ({data, handleClick}) => {
             }</style>
         </>
     );
-};    
+};
 
 
 export default Pixel;

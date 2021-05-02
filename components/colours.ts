@@ -1,15 +1,15 @@
 
 
-const lists= [
+const lists: Array<Object> = [
     {
-        first: "#272324", 
-        second: "#83B799", 
-        third: "#E2CD6D", 
-        fourth: "#C2B29F", 
-        fifth: "#E4D8B4", 
+        first: "#272324",
+        second: "#83B799",
+        third: "#E2CD6D",
+        fourth: "#C2B29F",
+        fifth: "#E4D8B4",
         sixth: "#E86f68"
-     },
-     {
+    },
+    {
         "first": "#ffce3f",
         "second": "#06304b",
         "third": "#0094b6"
@@ -26,7 +26,7 @@ const lists= [
         "third": "#45adab",
         "fourth": "#9de0ad",
         "fifth": "#e5fcc2"
-    },        
+    },
     {
         "first": "#a8e6ce",
         "second": "#dcedc2",

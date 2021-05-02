@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import type { NextApiRequest, NextApiResponse } from "next";
 
-const handleDB = fn => async (req, res) => {
+
+const handleDB = fn => async (req: NextApiRequest, res: NextApiResponse) => {
     const ID = Math.floor(Math.random() * 1000);
     const { db } = process.env;
     mongoose.set('useFindAndModify', false);

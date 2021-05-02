@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const pixelSchema = new mongoose.Schema({
     creator: {
@@ -8,11 +8,11 @@ const pixelSchema = new mongoose.Schema({
     palette: Object,
     image: [
         [String]
-    ] 
-},{
+    ]
+}, {
     timestamps: {
         createdAt: "created_at"
     }
 });
 
-module.exports  = mongoose.models.Pixel || mongoose.model("Pixel", pixelSchema);
+export default mongoose.models.Pixel || mongoose.model("Pixel", pixelSchema);

@@ -1,6 +1,7 @@
 import Link from "next/link";
+import type { FunctionComponent } from "react";
 
-const Nav = () => {
+const Nav: FunctionComponent<{}> = () => {
     return (
         <nav>
             <Link href="/">Home</Link>

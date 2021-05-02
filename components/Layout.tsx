@@ -1,10 +1,14 @@
 import Nav from "./Nav";
+import { FunctionComponent, ReactNode } from "react";
 
+interface Props {
+    children: ReactNode;
+}
 
-export default function Layout({children}){
+const Layout: FunctionComponent<Props> = ({ children }: Props) => {
     return (
         <div>
-            <Nav/>
+            <Nav />
             <main>
                 {children}
             </main>
@@ -14,4 +18,6 @@ export default function Layout({children}){
             </style>
         </div>
     )
-}
+};
+
+export default Layout;

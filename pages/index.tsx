@@ -1,24 +1,24 @@
-import {useState, useEffect} from "react";
+import React, { useState, useEffect, MouseEvent, ChangeEvent } from "react";
 import Layout from "../components/Layout";
 import { createPixel } from "../services/pixels";
 import lists from "../components/colours";
 import Pixel from "../components/Pixel";
 
-export default function Index(){    
+export default function Index() {
 
-    const [count, setCount] = useState(0);
-    const [palette, setPalette] = useState(lists[count]);
+    const [count, setCount] = useState<number>(0);
+    const [palette, setPalette] = useState<object>(lists[count]);
 
-    const [COLUMNS, setCOLUMNS] = useState(4);    
-    const [colour, setColour] = useState(Object.keys(palette)[1]);
-    const [data, setData] = useState(new Array(COLUMNS).fill(new Array(COLUMNS).fill(palette[Object.keys(palette)[0]])));
+    const [COLUMNS, setCOLUMNS] = useState<number>(4);
+    const [colour, setColour] = useState<string>(Object.keys(palette)[1]);
+    const [data, setData] = useState<Array<Array<string>>>(new Array(COLUMNS).fill(new Array(COLUMNS).fill(palette[Object.keys(palette)[0]])));
 
-    const handleColumnChange = e => {
-        const {value} = e.target;        
+    const handleColumnChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target;
         setCOLUMNS(parseInt(value));
     }
 
-    const handleReset = e => {
+    const handleReset = (e: MouseEvent<HTMLButtonElement>) => {
         setData(new Array(COLUMNS).fill(new Array(COLUMNS).fill(palette[Object.keys(palette)[0]])))
         setColour(palette[Object.keys(palette)[1]]);
     }
@@ -28,46 +28,46 @@ export default function Index(){
         setData(new Array(COLUMNS).fill(new Array(COLUMNS).fill(palette[Object.keys(palette)[0]])));
     }, [COLUMNS]);
 
-    useEffect(() => {        
-        setPalette(lists[count]);        
+    useEffect(() => {
+        setPalette(lists[count]);
     }, [count])
     useEffect(() => {
         setColour(palette[Object.keys(palette)[1]]);
         setData(new Array(COLUMNS).fill(new Array(COLUMNS).fill(palette[Object.keys(palette)[0]])));
     }, [palette])
-  
-    
+
+
     const handleColourChange = () => {
-        setCount( count === lists.length -1 ? 0 : count + 1);   
+        setCount(count === lists.length - 1 ? 0 : count + 1);
         setData(new Array(COLUMNS).fill(new Array(COLUMNS).fill(palette[Object.keys(palette)[0]])))
-        setColour(palette[Object.keys(palette)[1]]);     
+        setColour(palette[Object.keys(palette)[1]]);
     }
 
 
-    const handleClick = (clickedRow, clickedCol) => {        
-        
-        const updated = data.map((currentRow, row_index) => {    
-            if(row_index === clickedRow){
+    const handleClick = (clickedRow: number, clickedCol: number) => {
+
+        const updated = data.map((currentRow, row_index) => {
+            if (row_index === clickedRow) {
                 return currentRow.map((currentCol, col_index) => {
-                    if(col_index === clickedCol){                        
+                    if (col_index === clickedCol) {
                         return colour;
-                    }else{
+                    } else {
                         return currentCol;
-                    }                        
+                    }
                 })
-            }else{
+            } else {
                 return currentRow;
             }
-        })             
+        })
         setData(updated);
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        createPixel(data, palette)            
+        createPixel(data, palette)
             .then(res => {
                 console.log(res.path);
-                console.log(res.description);
+                console.log(res.payload);
                 setData(new Array(COLUMNS).fill(new Array(COLUMNS).fill(palette[Object.keys(palette)[0]])));
             }).catch(err => {
                 console.log(err);
@@ -79,40 +79,40 @@ export default function Index(){
         <Layout>
             <h1>Pixels</h1>
             <section key={1}>
-                    <select value={COLUMNS} onChange={handleColumnChange}>
+                <select value={COLUMNS} onChange={handleColumnChange}>
                     {
                         [2, 3, 4, 5, 6, 7, 8].map((num, index) => {
                             return (
                                 <option value={num} key={index}>{num}</option>
                             )
                         })
-                    }                  
+                    }
                 </select>
                 <button onClick={handleReset}>Reset</button>
             </section>
-            <section key={2}>                                             
-                <Pixel data={data} handleClick={handleClick}/>                
+            <section key={2}>
+                <Pixel data={data} handleClick={handleClick} />
             </section>
             <section key={3}>
-              
-            <div className="row">
-            {
-                Object.keys(palette).map((p, pIndex) => {
-                    return (
-                        <div className="square" 
-                            key={pIndex}
-                            style={{backgroundColor: palette[p]}} 
-                            onClick = {() => setColour(palette[p])}>
-                        </div>
-                    )
-                })
-            }
-        </div>
-              
+
+                <div className="row">
+                    {
+                        Object.keys(palette).map((p, pIndex) => {
+                            return (
+                                <div className="square"
+                                    key={pIndex}
+                                    style={{ backgroundColor: palette[p] }}
+                                    onClick={() => setColour(palette[p])}>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+
             </section>
-            <section key={4} style={{display: "flex"}}>
+            <section key={4} style={{ display: "flex" }}>
                 <form onSubmit={handleSubmit}>
-                    <input type="submit"/>
+                    <input type="submit" />
                 </form>
                 <div>
                     <button onClick={handleColourChange}>
