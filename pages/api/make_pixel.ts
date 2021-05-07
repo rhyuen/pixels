@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { withApiAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import handleDB from "./mw/db";
 import Pixel from "./models/pixel";
 
@@ -14,8 +15,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             const toBeSaved = image.map(item => item);
             console.log(toBeSaved);
             console.log(palette);
+
+            const { user } = getSession(req, res);
+
             const latest = new Pixel({
-                creator: `Robert${new Date().getMilliseconds()}`,
+                creator: user.name,
                 image: toBeSaved,
                 palette: palette
 
@@ -38,4 +42,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 }
 
-export default handleDB(handler);
+export default withApiAuthRequired(handleDB(handler));

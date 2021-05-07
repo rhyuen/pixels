@@ -1,5 +1,6 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import handleDB from "./mw/db";
 import Pixel from "./models/pixel";
 
@@ -27,4 +28,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 }
 
-export default handleDB(handler)
+export default withApiAuthRequired(handleDB(handler));
