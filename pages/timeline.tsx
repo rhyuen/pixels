@@ -8,7 +8,7 @@ import { Pixel as PixelType } from "../shared/types"
 export default function Timeline() {
 
     const [data, setData] = useState<Array<PixelType>>([]);
-
+    const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
         let mounted = true;
@@ -18,14 +18,19 @@ export default function Timeline() {
                 console.log(res.path);
                 console.log(res.payload);
                 setData(res.payload);
-                return () => {
-                    mounted = false;
-                };
             }
         }).catch(e => {
             console.error(e);
-            console.log("an error has occurred.")
+            console.log("an error has occurred.");
+            if (mounted) {
+                setError(true);
+            }
         });
+
+        return () => {
+            mounted = false;
+        };
+
     }, [])
 
     const getRelativeTimeString = (date: string) => {
@@ -39,16 +44,21 @@ export default function Timeline() {
         }
         const differenceInHours = differenceInMinutes / 60;
         if (differenceInHours <= 24) {
-            return `${Math.ceil(differenceInHours)} hours ago.`;
+            const minutesRemainder = differenceInMinutes % 60;
+            return `${Math.floor(differenceInHours)} hours and ${Math.ceil(minutesRemainder)} minutes ago.`;
         }
 
-        return `${Math.ceil(differenceInHours / 24)} days ago.`;
+        const days = differenceInHours / 24;
+        return `${Math.ceil(days)} days and ${Math.ceil(days % 24)} hours ago.`;
 
     }
 
     return (
         <Layout>
             <h1>Pixel Timeline.</h1>
+            {
+                error ? <div>Something has gone wrong</div> : null
+            }
             {
                 data.length === 0 ? "No pixels to show." :
                     data.map(({ image, creator, created_at, _id, palette }) => {

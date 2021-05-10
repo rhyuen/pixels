@@ -16,10 +16,14 @@ const Nav: FunctionComponent<{}> = () => {
         <nav>
             <Link href="/">Home</Link>
             <Link href="/timeline">Timeline</Link>
-            <Link href="/profile">Profile</Link>
-            <div>
-                Welcome {user.name}! <a href="/api/auth/logout">Logout</a>
-            </div>
+            <Link href="/profile">{user.name}</Link>
+            <a href="/api/auth/logout">Logout</a>
+            <style jsx>{`
+                nav{
+                    max-width: 1000px;
+                    margin: 0 auto;
+                }
+            `}</style>
         </nav>
     )
 }

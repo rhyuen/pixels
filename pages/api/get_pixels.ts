@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import handleDB from "./mw/db";
 import Pixel from "./models/pixel";
+import type { IPixel } from "./models/pixel";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
@@ -11,7 +12,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 message: 'only GETs for this endpoint.'
             });
         } else {
-            const result = await Pixel.find({}).exec();
+            const result: Array<IPixel> = await Pixel.find({}).exec();
             console.log(result);
             res.status(200).json({
                 path: "[GET] /get_pixels",

@@ -1,0 +1,14 @@
+*{
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a{
+    color: palegreen;
+    text-decoration: none;
+}
+
+a:visited{
+    color:palevioletred;
+}

@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { withApiAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import handleDB from "./mw/db";
 import Pixel from "./models/pixel";
+import type { IPixel } from "./models/pixel";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
@@ -18,14 +19,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             const { user } = getSession(req, res);
 
-            const latest = new Pixel({
+            const latest: IPixel = new Pixel({
                 creator: user.name,
                 image: toBeSaved,
                 palette: palette
 
             });
 
-            const result = await latest.save();
+            const result: IPixel = await latest.save();
 
             return res.status(200).json({
                 path: "[POST] /make_pixel",

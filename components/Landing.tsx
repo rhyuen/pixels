@@ -4,8 +4,8 @@ import { FunctionComponent } from "react";
 const Landing: FunctionComponent<{}> = () => {
     return (
         <div>
-            function component<br />
-            <a href="/api/auth/login">login</a>
+            <h1>Pixels, make and share pixels.</h1><br />
+            <a href="/api/auth/login">Login</a>
         </div>
     )
 }

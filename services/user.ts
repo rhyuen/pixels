@@ -8,7 +8,7 @@ async function getUserDetails(): Promise<UserDetails> {
             if (res.ok) {
                 return res.json();
             } else {
-                throw new Error("issue with the fetch call.");
+                throw new Error("issue with the getUserDetails call.");
             }
         })
 }

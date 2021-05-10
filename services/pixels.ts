@@ -10,10 +10,22 @@ export async function createPixel(image, palette): Promise<Response> {
         },
         body: JSON.stringify({ image: image, palette: palette })
     };
-    return fetch(url, options).then(res => res.json());
+    return fetch(url, options).then(res => {
+        if (res.ok) {
+            return res.json();
+        } else {
+            throw new Error("Issue with createPixel");
+        }
+    });
 }
 
 export async function getPixels(): Promise<Response> {
     const url = "/api/get_pixels";
-    return fetch(url).then(res => res.json());
+    return fetch(url).then(res => {
+        if (res.ok) {
+            return res.json();
+        } else {
+            throw new Error("Issue with getPixels");
+        }
+    });
 }

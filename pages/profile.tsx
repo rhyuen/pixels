@@ -5,6 +5,7 @@ import { UserDetails } from "../shared/types"
 
 export default function Profile() {
     const [profile, setProfile] = useState<UserDetails | {}>({});
+    const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
 
@@ -16,6 +17,10 @@ export default function Profile() {
                 }
             }).catch(e => {
                 console.log(e);
+                console.log('totally got an error');
+                if (mounted) {
+                    setError(true);
+                }
             });
 
         return () => {
@@ -26,12 +31,31 @@ export default function Profile() {
     return (
         <Layout>
             <h1>Your Profile</h1>
-            <div><ul>{Object.keys(profile).map((k, index) => {
-                return (<li key={index}>{k}</li>)
-            })}</ul></div>
-            <div><ul>{Object.values(profile).map((v, index) => {
-                return (<li key={index}>{v}</li>)
-            })}</ul></div>
+
+            {
+                error ?
+                    <>Something went wrong.</> :
+                    <>
+                        <div>
+                            <ul>
+                                {
+                                    Object.keys(profile).map((k, index) => {
+                                        return (<li key={index}>{k}</li>)
+                                    })
+                                }
+                            </ul>
+                        </div>
+                        <div>
+                            <ul>
+                                {
+                                    Object.values(profile).map((v, index) => {
+                                        return (<li key={index}>{v}</li>)
+                                    })
+                                }
+                            </ul>
+                        </div>
+                    </>
+            }
         </Layout>
 
     )

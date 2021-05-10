@@ -1,6 +1,12 @@
-import mongoose from "mongoose";
+import { model, Schema, Document, models, Model } from "mongoose";
 
-const pixelSchema = new mongoose.Schema({
+interface IPixel extends Document {
+    creator: string;
+    palette: Object;
+    image: Array<Array<string>>;
+}
+
+const pixelSchema: Schema = new Schema({
     creator: {
         type: String,
         required: true
@@ -15,4 +21,9 @@ const pixelSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.models.Pixel || mongoose.model("Pixel", pixelSchema);
+
+const Pixel: Model<IPixel> = models.Pixel || model("Pixel", pixelSchema);
+
+export type { IPixel };
+
+export default Pixel;

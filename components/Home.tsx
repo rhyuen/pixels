@@ -16,12 +16,12 @@ export default function Home() {
     const handleColumnChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target;
         setCOLUMNS(parseInt(value));
-    }
+    };
 
     const handleReset = (e: MouseEvent<HTMLButtonElement>) => {
         setData(new Array(COLUMNS).fill(new Array(COLUMNS).fill(palette[Object.keys(palette)[0]])))
         setColour(palette[Object.keys(palette)[1]]);
-    }
+    };
 
     useEffect(() => {
         setColour(palette[Object.keys(palette)[1]]);
@@ -30,18 +30,18 @@ export default function Home() {
 
     useEffect(() => {
         setPalette(lists[count]);
-    }, [count])
+    }, [count]);
     useEffect(() => {
         setColour(palette[Object.keys(palette)[1]]);
         setData(new Array(COLUMNS).fill(new Array(COLUMNS).fill(palette[Object.keys(palette)[0]])));
-    }, [palette])
+    }, [palette]);
 
 
     const handleColourChange = () => {
         setCount(count === lists.length - 1 ? 0 : count + 1);
         setData(new Array(COLUMNS).fill(new Array(COLUMNS).fill(palette[Object.keys(palette)[0]])))
         setColour(palette[Object.keys(palette)[1]]);
-    }
+    };
 
 
     const handleClick = (clickedRow: number, clickedCol: number) => {
@@ -64,15 +64,21 @@ export default function Home() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        let mounted = true;
         createPixel(data, palette)
             .then(res => {
-                console.log(res.path);
-                console.log(res.payload);
-                setData(new Array(COLUMNS).fill(new Array(COLUMNS).fill(palette[Object.keys(palette)[0]])));
+                if (mounted) {
+                    console.log(res.path);
+                    console.log(res.payload);
+                    setData(new Array(COLUMNS).fill(new Array(COLUMNS).fill(palette[Object.keys(palette)[0]])));
+                }
             }).catch(err => {
                 console.log(err);
                 console.log("error with form submission");
             });
+        return () => {
+            mounted = false;
+        }
     }
 
     return (

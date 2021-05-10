@@ -2,6 +2,14 @@
 
 const lists: Array<Object> = [
     {
+        first: "#eadff2",
+        second: "#dccbed",
+        third: "#fee5eb",
+        fourth: "#fcb7d0",
+        fifth: "#f07bbb",
+        sixth: "#9979c1"
+    },
+    {
         first: "#272324",
         second: "#83B799",
         third: "#E2CD6D",
