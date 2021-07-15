@@ -83,69 +83,116 @@ export default function Home() {
 
     return (
         <Layout>
-            <h1>Pixels</h1>
-            <section key={1}>
-                <select value={COLUMNS} onChange={handleColumnChange}>
-                    {
-                        [2, 3, 4, 5, 6, 7, 8].map((num, index) => {
-                            return (
-                                <option value={num} key={index}>{num}</option>
-                            )
-                        })
-                    }
-                </select>
-                <button onClick={handleReset}>Reset</button>
-            </section>
-            <section key={2}>
-                <Pixel data={data} handleClick={handleClick} />
-            </section>
-            <section key={3}>
+            <div className='creator'>
+                <h1>Make a px and share it with the world.</h1>
+                <section key={1}>
+                    <select value={COLUMNS} onChange={handleColumnChange}>
+                        {
+                            [2, 3, 4, 5, 6, 7, 8].map((num, index) => {
+                                return (
+                                    <option value={num} key={index}>{num}</option>
+                                )
+                            })
+                        }
+                    </select>
+                    <button className="button button--secondary" onClick={handleReset}>Reset</button>
+                </section>
+                <section key={2}>
+                    <Pixel data={data} handleClick={handleClick} />
+                </section>
+                <section key={3}>
 
-                <div className="row">
-                    {
-                        Object.keys(palette).map((p, pIndex) => {
-                            return (
-                                <div className="square"
-                                    key={pIndex}
-                                    style={{ backgroundColor: palette[p] }}
-                                    onClick={() => setColour(palette[p])}>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
+                    <ul className="row">
+                        {
+                            Object.keys(palette).map((p, pIndex) => {
+                                return (
+                                    <li className="square"
+                                        key={pIndex}
+                                        style={{ backgroundColor: palette[p] }}
+                                        onClick={() => setColour(palette[p])}>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
 
-            </section>
-            <section key={4} style={{ display: "flex" }}>
-                <form onSubmit={handleSubmit}>
-                    <input type="submit" />
-                </form>
-                <div>
-                    <button onClick={handleColourChange}>
+                </section>
+                <section key={4} className='container--form'>
+                    <form onSubmit={handleSubmit}>
+                        <input className="button" type="submit" />
+                    </form>
+                    <button className="button button--secondary" onClick={handleColourChange}>
                         New Colours
                     </button>
-                </div>
-            </section>
+                </section>
+            </div>
+            <aside>
+                <h2>Things other people are doing.</h2>
+                <p>
+                    At this time, nothing!
+                </p>
+            </aside>
 
             <style jsx>{`
+                .creator{
+                    display: flex;
+                    flex-direction: column;
+                    grid-column: 1/span 1;
+                    padding: 2rem;
+                    margin-right: 5rem;
+                    border: 1px solid rgba(0,0,0,0.1);
+                    border-radius: .5rem;
+                }
+                aside{
+                    display: flex;
+                    flex-direction: column;                    
+                }
+
+                .container--form{
+                    display: flex;
+                    justify-content: flex-start;
+                    margin-top: 1rem;
+                }
+
                 .row{
                     display: flex;
                 }
 
-                .square{
-                    border: 2px solid black;
+                .square{                   
                     width: 4rem;
                     height: 4rem;
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    flex-grow: 1;
                 }
-                .square:first-child{
-                    border-right: 2px solid transparent;
+                
+                .button{
+                    color: white;
+                    font-weight: 600;
+                    padding: .5rem 1rem;                    
+                    background: black;
+                    font-size: 1.2rem;
+                    border: 2px solid black;
+                    margin: 0 1rem;
+                    transition: background .2s ease-in-out, color .2s ease-in-out;
                 }
-                .square:last-child{                    
-                    border-left: 2px solid transparent;
-                    border-right: 2px solid black;
+                .button:first-child{
+                    margin-left: 0;
+                }
+                .button:last-child{
+                    margin-right: 0;
+                }
+                .button:hover{
+                    color: black;
+                    background: white;
+                }
+
+                .button--secondary{
+                    color: var(--GREY);
+                    background: white;
+                    border: 2px solid var(--GREY);
+                }
+                .button--secondary:hover{
+                    background: rgba(0,0,0,0.1);
                 }
             `
             }</style>

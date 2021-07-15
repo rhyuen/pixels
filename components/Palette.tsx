@@ -6,34 +6,33 @@ interface Props {
 
 const Palette: FunctionComponent<Props> = ({ colours }: Props) => {
     return (
-        <div className="row">
+        <ul className="row">
             {
                 colours.map((col, colIndex) => {
                     return (
-                        <div key={colIndex}
+                        <li key={colIndex}
                             className="palette"
                             style={{ backgroundColor: col }}>
-                        </div>
+                        </li>
                     )
                 })
             }
             <style jsx>{`
-        .row{
-            display: flex;
-        }
+                .row{
+                    display: flex;
+                }
 
-        .palette{
-            border: 2px solid transparent;
-            width: 4rem;
-            height: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+                .palette{
+                    border: 2px solid transparent;
+                    flex-grow: 1;
+                    height: 1rem;
+                    display: flex;                    
+                    justify-content: center;
+                    align-items: center;
+                }
    
-    `
-            }</style>
-        </div>
+            `}</style>
+        </ul>
     );
 };
 

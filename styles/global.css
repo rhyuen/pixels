@@ -2,13 +2,39 @@
     box-sizing: border-box;
     font-size: 16px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --GREY: rgba(0,0,0,0.4);
+}
+
+body{
+    margin: 0;
 }
 
 a{
-    color: palegreen;
+    color: black;
+    font-weight: 600;
     text-decoration: none;
 }
 
 a:visited{
-    color:palevioletred;
+    color: var(--GREY);
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+h1{
+    font-size: 2rem;
+}
+
+h2{
+    font-size: 1.2rem;
+    color: var(--GREY);
+}
+
+main{
+    margin: 0 auto;
+    max-width: 1000px;
 }

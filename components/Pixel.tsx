@@ -11,43 +11,68 @@ const Pixel: FunctionComponent<Props> = ({ data, handleClick }: Props) => {
             {
                 data.map((row, rowIndex) => {
                     return (
-                        <div className="row"
+                        <ul className="row"
                             key={rowIndex}>
                             {
                                 row.map((col, colIndex) => {
                                     return (
-                                        <div key={colIndex}
+                                        <li key={colIndex}
                                             className="square"
                                             style={{ backgroundColor: col }}
                                             onClick={() => handleClick(rowIndex, colIndex)}>
-                                        </div>
+                                        </li>
                                     )
                                 })
                             }
-                        </div>
+                        </ul>
                     );
                 })
             }
             <style jsx>{`
+
+                @keyframes jiggle {
+                    0%{
+                        transform: rotate(0deg);
+                    }
+
+                    25%{
+                        transform: rotate(-15deg);
+                    }
+                    50%{
+                        transform: rotate(0deg);
+                    }
+
+                    75%{
+                        transform: rotate(15deg);
+                    }
+
+                    100%{
+                        transform: rotate(0deg);
+                    }
+
+                }
+
                 .row{
                     display: flex;
                 }
+                .row:first-child{
+                    margin-top: 2rem;
+                }
+                .row:last-child{
+                    margin-bottom: 2rem;
+                }
 
                 .square{
-                    border: 2px solid black;
+                    border: 2px solid transparent;
+                    margin-right: 2px;
+                    margin-bottom: 2px;
                     width: 4rem;
-                    height: 4rem;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-                .square:first-child{
-                    border-right: 2px solid transparent;
-                }
-                .square:last-child{                    
-                    border-left: 2px solid transparent;
-                    border-right: 2px solid black;
-                }
+                    height: 4rem;                    
+                }    
+                .square:hover{
+                    animation: jiggle .4s;
+                }    
+                                
             `
             }</style>
         </>
