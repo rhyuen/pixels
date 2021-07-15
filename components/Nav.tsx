@@ -17,7 +17,7 @@ const Nav: FunctionComponent<{}> = () => {
             <ul className="container">
                 <li className='container__item'>
                     <Link href="/">
-                        <a>px</a>
+                        <a>pixi</a>
                     </Link>
                 </li>
                 <li className='container__item'>
@@ -53,7 +53,7 @@ const Nav: FunctionComponent<{}> = () => {
                     height: 100%;
                 }
                 .container__item{
-                    margin-right: 2rem;
+                    margin: 0 1rem;
                 }
 
                 .container--right-aligned{

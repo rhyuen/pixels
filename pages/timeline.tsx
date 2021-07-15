@@ -3,6 +3,7 @@ import { getPixels } from "../services/pixels";
 import Pixel from "../components/Pixel";
 import { useEffect, useState } from "react";
 import Palette from "../components/Palette";
+import Empty from "../components/Empty";
 import { Pixel as PixelType } from "../shared/types"
 
 export default function Timeline() {
@@ -56,16 +57,17 @@ export default function Timeline() {
     return (
         <Layout>
             <div className='timeline'>
-                <h1>The latest px in town.</h1>
+                <h1>The latest pixels in town.</h1>
                 {
                     error ? <div>Something has gone wrong</div> : null
                 }
                 {
-                    data.length === 0 ? "No pixels to show." :
+                    data.length === 0 ? <Empty>No pixels to show.</Empty> :
                         data.map(({ image, creator, created_at, _id, palette }) => {
                             return (
-                                <div style={{ marginBottom: "20px" }} key={_id}>
-                                    <h3>{creator}, {getRelativeTimeString(created_at)}</h3>
+                                <div className='card' key={_id}>
+                                    <h3>{creator}</h3>
+                                    <p className="date-created">{getRelativeTimeString(created_at)}</p>
                                     <Pixel data={image} handleClick={() => { console.log('dummy') }} />
                                     <br />
                                     <Palette colours={Object.values(palette)} />
@@ -74,24 +76,18 @@ export default function Timeline() {
                         })
                 }
             </div>
-            <aside>
-                <h2>Things other people are doing.</h2>
-                <p>
-                    At this time, nothing!
-                </p>
-            </aside>
             <style jsx>{
                 `
-                    .timeline{
-                        grid-column: 1/span 1;
-                        display: flex;
-                        flex-direction: column;
-                        margin-right: 5rem;
-                    }
-                    aside{
-                        grid-column: 2/span 1;
+                    .timeline{                        
                         display: flex;
                         flex-direction: column;                        
+                    }
+                  
+                    p.date-created{
+                        font-size: .9rem;
+                        font-weight: 600;
+                        color: var(--GREY);
+                        margin-bottom: 2rem;
                     }
                 `
             }</style>

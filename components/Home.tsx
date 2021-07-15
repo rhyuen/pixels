@@ -83,9 +83,9 @@ export default function Home() {
 
     return (
         <Layout>
-            <div className='creator'>
-                <h1>Make a px and share it with the world.</h1>
-                <section key={1}>
+            <div className='card'>
+                <h1>Colour some pixels and share it with the world.</h1>
+                <section key={1} className='container--form'>
                     <select value={COLUMNS} onChange={handleColumnChange}>
                         {
                             [2, 3, 4, 5, 6, 7, 8].map((num, index) => {
@@ -126,31 +126,14 @@ export default function Home() {
                     </button>
                 </section>
             </div>
-            <aside>
-                <h2>Things other people are doing.</h2>
-                <p>
-                    At this time, nothing!
-                </p>
-            </aside>
 
             <style jsx>{`
-                .creator{
-                    display: flex;
-                    flex-direction: column;
-                    grid-column: 1/span 1;
-                    padding: 2rem;
-                    margin-right: 5rem;
-                    border: 1px solid rgba(0,0,0,0.1);
-                    border-radius: .5rem;
-                }
-                aside{
-                    display: flex;
-                    flex-direction: column;                    
-                }
+                              
 
                 .container--form{
                     display: flex;
                     justify-content: flex-start;
+                    flex-grow: 1;
                     margin-top: 1rem;
                 }
 
@@ -164,35 +147,21 @@ export default function Home() {
                     display: flex;
                     flex-grow: 1;
                 }
-                
-                .button{
-                    color: white;
-                    font-weight: 600;
-                    padding: .5rem 1rem;                    
-                    background: black;
-                    font-size: 1.2rem;
-                    border: 2px solid black;
-                    margin: 0 1rem;
-                    transition: background .2s ease-in-out, color .2s ease-in-out;
-                }
-                .button:first-child{
-                    margin-left: 0;
-                }
-                .button:last-child{
-                    margin-right: 0;
-                }
-                .button:hover{
-                    color: black;
-                    background: white;
+
+                select{
+                    display: flex;
+                    flex-grow: 1;                    
+                }                
+                                
+
+                form{
+                    display: flex;
+                    flex-grow: 1;
                 }
 
-                .button--secondary{
-                    color: var(--GREY);
-                    background: white;
-                    border: 2px solid var(--GREY);
-                }
-                .button--secondary:hover{
-                    background: rgba(0,0,0,0.1);
+                input[type="submit"]{
+                    display: flex;
+                    width: 100%;
                 }
             `
             }</style>

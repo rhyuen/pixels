@@ -53,7 +53,8 @@ const Pixel: FunctionComponent<Props> = ({ data, handleClick }: Props) => {
                 }
 
                 .row{
-                    display: flex;
+                    display: grid;                    
+                    grid-template-columns: repeat(auto-fit, minmax(1rem, 1fr));
                 }
                 .row:first-child{
                     margin-top: 2rem;
@@ -63,12 +64,16 @@ const Pixel: FunctionComponent<Props> = ({ data, handleClick }: Props) => {
                 }
 
                 .square{
-                    border: 2px solid transparent;
-                    margin-right: 2px;
-                    margin-bottom: 2px;
-                    width: 4rem;
-                    height: 4rem;                    
-                }    
+                    border: 2px solid transparent;                    
+                    grid-column: span 1;          
+                    margin-right: .2rem;
+                    margin-bottom: .2rem;          
+                }   
+                .square:after{
+                    display: block;
+                    content: '';
+                    padding-bottom: 100%;
+                } 
                 .square:hover{
                     animation: jiggle .4s;
                 }    
